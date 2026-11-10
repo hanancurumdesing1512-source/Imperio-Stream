@@ -1,0 +1,744 @@
+HTML
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPERIO STREAM | Streaming & Cuentas VIP</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            purple: '#9d4edd',
+                            pink: '#ff007f',
+                            cyan: '#00f0ff',
+                            blue: '#3a86ff',
+                            green: '#00ff66'
+                        },
+                        dark: {
+                            bg: '#050509',
+                            card: '#0f0f1a',
+                            nav: '#0a0a14',
+                            input: '#161626'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #050509;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glow Backgrounds */
+        .glow-bg {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.25;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glow-1 { top: -100px; left: -100px; background: #9d4edd; animation: pulseGlow 8s infinite alternate; }
+        .glow-2 { top: 40%; right: -150px; background: #ff007f; animation: pulseGlow 10s infinite alternate-reverse; }
+        .glow-3 { bottom: -100px; left: 20%; background: #00f0ff; animation: pulseGlow 9s infinite alternate; }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.2; }
+            100% { transform: scale(1.3); opacity: 0.35; }
+        }
+
+        /* Neon Text Glow */
+        .neon-text-pink { text-shadow: 0 0 10px rgba(255, 0, 127, 0.8), 0 0 20px rgba(255, 0, 127, 0.5); }
+        .neon-text-cyan { text-shadow: 0 0 10px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.5); }
+        .neon-text-purple { text-shadow: 0 0 10px rgba(157, 78, 221, 0.8), 0 0 20px rgba(157, 78, 221, 0.5); }
+
+        /* Neon Card Borders */
+        .neon-box {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: linear-gradient(145deg, rgba(15, 15, 26, 0.9), rgba(10, 10, 20, 0.95));
+            backdrop-filter: blur(10px);
+        }
+        .neon-box:hover {
+            border-color: #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.1);
+            transform: translateY(-8px) scale(1.02);
+        }
+        .neon-box-combo:hover {
+            border-color: #ff007f;
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.4), inset 0 0 20px rgba(255, 0, 127, 0.15);
+        }
+
+        /* Animated LED Buttons */
+        .btn-neon-pink {
+            background: linear-gradient(90deg, #ff007f, #7928ca);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+            transition: all 0.3s ease;
+        }
+        .btn-neon-pink:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.9);
+            transform: scale(1.05);
+        }
+        .btn-neon-cyan {
+            background: linear-gradient(90deg, #00f0ff, #0070f3);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        .btn-neon-cyan:hover {
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.9);
+            transform: scale(1.05);
+        }
+        .btn-neon-green {
+            background: linear-gradient(90deg, #25D366, #128C7E);
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+            transition: all 0.3s ease;
+        }
+        .btn-neon-green:hover {
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.9);
+            transform: scale(1.05);
+        }
+
+        /* Continuous Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee { display: flex; width: 200%; animation: marquee 20s linear infinite; }
+        .animate-marquee:hover { animation-play-state: paused; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050509; }
+        ::-webkit-scrollbar-thumb { background: #3a86ff; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ff007f; }
+    </style>
+</head>
+<body class="relative min-h-screen pb-12">
+
+    <!-- Ambient Glow Backgrounds -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+    <div class="glow-bg glow-3"></div>
+
+    <!-- Ticker LED Announcement Bar -->
+    <div class="bg-black/80 border-b border-neon-purple/30 text-xs font-orbitron py-2 overflow-hidden relative z-40">
+        <div class="animate-marquee whitespace-nowrap flex space-x-12 text-cyan-300">
+            <span>⚡ IMPERIO STREAM: ENTREGA INMEDIATA LAS 24 HORAS</span>
+            <span>🔥 OFERTAS ESPECIALES EN COMBOS DE ENTRETENIMIENTO</span>
+            <span>📱 ATENCIÓN DIRECTA VÍA WHATSAPP: 0424-1449142</span>
+            <span>🔒 GARANTÍA COMPLETA DURANTE TODO TU MES DE SERVICIO</span>
+            <span>⚡ IMPERIO STREAM: ENTREGA INMEDIATA LAS 24 HORAS</span>
+            <span>🔥 OFERTAS ESPECIALES EN COMBOS DE ENTRETENIMIENTO</span>
+            <span>📱 ATENCIÓN DIRECTA VÍA WHATSAPP: 0424-1449142</span>
+            <span>🔒 GARANTÍA COMPLETA DURANTE TODO TU MES DE SERVICIO</span>
+        </div>
+    </div>
+
+    <!-- Navbar Header -->
+    <header class="sticky top-0 z-50 bg-dark-nav/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-neon-pink via-neon-purple to-neon-cyan p-[2px] animate-pulse">
+                    <div class="w-full h-full bg-dark-bg rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-crown text-neon-pink text-xl group-hover:rotate-12 transition-transform duration-300"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-orbitron text-2xl font-black tracking-widest text-white group-hover:neon-text-pink transition-all">
+                        IMPERIO<span class="text-neon-cyan">STREAM</span>
+                    </span>
+                    <span class="block text-[10px] text-gray-400 font-orbitron tracking-widest -mt-1">STREAMING VIP PLATFORMS</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex space-x-8 text-sm font-semibold text-gray-300 font-orbitron">
+                <a href="#cat-all" onclick="filterCategory('all')" class="hover:text-neon-cyan transition-colors">CATÁLOGO</a>
+                <a href="#cat-combos" onclick="filterCategory('combos')" class="hover:text-neon-pink transition-colors">COMBOS 💥</a>
+                <a href="#metodos" class="hover:text-neon-purple transition-colors">PAGOS</a>
+                <a href="#faq" class="hover:text-neon-cyan transition-colors">PREGUNTAS</a>
+            </nav>
+
+            <!-- Cart Trigger Button -->
+            <button onclick="toggleCart()" class="relative bg-dark-card border border-neon-cyan/40 px-5 py-2.5 rounded-full flex items-center space-x-3 hover:border-neon-cyan hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all">
+                <i class="fa-solid fa-shopping-cart text-neon-cyan"></i>
+                <span class="text-xs font-orbitron font-bold text-white hidden sm:inline">MI CARRITO</span>
+                <span id="cart-count" class="bg-neon-pink text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center font-orbitron">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="inline-flex items-center space-x-2 bg-neon-purple/10 border border-neon-purple/40 px-4 py-1.5 rounded-full mb-6">
+            <span class="w-2.5 h-2.5 rounded-full bg-neon-pink animate-ping"></span>
+            <span class="text-xs font-orbitron text-neon-purple font-bold">TU ENTRETENIMIENTO SIN LÍMITES</span>
+        </div>
+        
+        <h1 class="font-orbitron text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white mb-6">
+            DOMINA EL MEJOR <br>
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-neon-pink via-neon-purple to-neon-cyan neon-text-pink">
+                CONTENIDO STREAMING
+            </span>
+        </h1>
+        
+        <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg mb-10">
+            Cuentas completas, perfiles VIP y combos exclusivos de tus plataformas favoritas con soporte inmediato y activación express.
+        </p>
+
+        <!-- Category Quick Buttons -->
+        <div class="flex flex-wrap justify-center gap-3 font-orbitron text-xs sm:text-sm">
+            <button onclick="filterCategory('all')" class="cat-btn active px-6 py-3 rounded-full border border-neon-cyan bg-neon-cyan/10 text-white font-bold hover:shadow-[0_0_15px_rgba(0,240,255,0.5)] transition-all">
+                TODOS LOS SERVICIOS
+            </button>
+            <button onclick="filterCategory('combos')" class="cat-btn px-6 py-3 rounded-full border border-neon-pink/40 bg-dark-card text-gray-300 hover:border-neon-pink hover:text-white transition-all">
+                🔥 COMBOS DÚO
+            </button>
+            <button onclick="filterCategory('streaming')" class="cat-btn px-6 py-3 rounded-full border border-neon-purple/40 bg-dark-card text-gray-300 hover:border-neon-purple hover:text-white transition-all">
+                🎬 PELÍCULAS & SERIES
+            </button>
+            <button onclick="filterCategory('musica')" class="cat-btn px-6 py-3 rounded-full border border-neon-green/40 bg-dark-card text-gray-300 hover:border-neon-green hover:text-white transition-all">
+                🎵 MÚSICA & PRO
+            </button>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Cards generated dynamically via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Payment Methods Section -->
+    <section id="metodos" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="bg-dark-card border border-white/10 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/10 to-neon-cyan/10 opacity-50"></div>
+            <h2 class="font-orbitron text-2xl sm:text-3xl font-bold text-white mb-4 relative z-10">MÉTODOS DE PAGO ACEPTADOS</h2>
+            <p class="text-gray-400 text-sm mb-8 relative z-10">Realiza tu pago de forma segura a través de los siguientes canales nacionales e internacionales</p>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 relative z-10 font-orbitron">
+                <div class="bg-dark-bg p-4 rounded-xl border border-white/5 hover:border-neon-cyan transition-all flex flex-col items-center justify-center space-y-2">
+                    <i class="fa-solid fa-[#0055a5] fa-mobile-screen-button text-3xl text-neon-cyan"></i>
+                    <span class="text-xs font-bold">PAGO MÓVIL</span>
+                </div>
+                <div class="bg-dark-bg p-4 rounded-xl border border-white/5 hover:border-neon-purple transition-all flex flex-col items-center justify-center space-y-2">
+                    <i class="fa-solid fa-[#00ff66] fa-building-columns text-3xl text-neon-green"></i>
+                    <span class="text-xs font-bold">TRANSFERENCIA BS</span>
+                </div>
+                <div class="bg-dark-bg p-4 rounded-xl border border-white/5 hover:border-neon-pink transition-all flex flex-col items-center justify-center space-y-2">
+                    <i class="fa-solid fa-[#ff007f] fa-dollar-sign text-3xl text-neon-pink"></i>
+                    <span class="text-xs font-bold">ZELLE / ZINLI</span>
+                </div>
+                <div class="bg-dark-bg p-4 rounded-xl border border-white/5 hover:border-neon-blue transition-all flex flex-col items-center justify-center space-y-2">
+                    <i class="fa-solid fa-[#3a86ff] fa-coins text-3xl text-neon-blue"></i>
+                    <span class="text-xs font-bold">BINANCE / USDT</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 class="font-orbitron text-3xl font-bold text-center text-white mb-10">PREGUNTAS <span class="text-neon-cyan">FRECUENTES</span></h2>
+        
+        <div class="space-y-4 font-poppins">
+            <details class="group bg-dark-card border border-white/10 rounded-2xl p-6 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between cursor-pointer font-orbitron font-semibold text-white">
+                    <span>¿Cómo se realiza la entrega de mi cuenta?</span>
+                    <span class="ml-4 flex-shrink-0 transition-transform duration-300 group-open:-rotate-180 text-neon-cyan">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </summary>
+                <p class="mt-4 text-sm text-gray-400">
+                    Una vez confirmado tu pago, la entrega de los accesos (correo y clave) se envía de forma inmediata a través de WhatsApp.
+                </p>
+            </details>
+
+            <details class="group bg-dark-card border border-white/10 rounded-2xl p-6 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between cursor-pointer font-orbitron font-semibold text-white">
+                    <span>¿Las cuentas tienen garantía completa?</span>
+                    <span class="ml-4 flex-shrink-0 transition-transform duration-300 group-open:-rotate-180 text-neon-cyan">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </summary>
+                <p class="mt-4 text-sm text-gray-400">
+                    Sí, todas nuestras cuentas y perfiles cuentan con garantía total durante el tiempo de suscripción contratado (30, 60 o 90 días).
+                </p>
+            </details>
+
+            <details class="group bg-dark-card border border-white/10 rounded-2xl p-6 [&_summary::-webkit-details-marker]:hidden">
+                <summary class="flex items-center justify-between cursor-pointer font-orbitron font-semibold text-white">
+                    <span>¿Puedo renovar la misma cuenta sin perder perfiles?</span>
+                    <span class="ml-4 flex-shrink-0 transition-transform duration-300 group-open:-rotate-180 text-neon-cyan">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </summary>
+                <p class="mt-4 text-sm text-gray-400">
+                    En la gran mayoría de nuestras plataformas ofrecemos renovación sobre la misma cuenta para que conserves tu historial y lista de reproducción.
+                </p>
+            </details>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-white/10 mt-16 pt-12 pb-8 text-center text-gray-500 text-xs font-orbitron">
+        <div class="max-w-7xl mx-auto px-4 space-y-4">
+            <div class="flex justify-center space-x-6 text-xl text-gray-400">
+                <a href="https://wa.me/584241449142" target="_blank" class="hover:text-neon-green transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-neon-pink transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-neon-cyan transition-colors"><i class="fa-brands fa-telegram"></i></a>
+            </div>
+            <p>contacto directo: <span class="text-white font-bold">0424-1449142</span></p>
+            <p>© 2026 IMPERIO STREAM - TODOS LOS DERECHOS RESERVADOS.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Action Button -->
+    <a href="https://wa.me/584241449142?text=Hola%20Imperio%20Stream,%20deseo%20más%20información" target="_blank" 
+       class="fixed bottom-6 left-6 z-40 bg-gradient-to-r from-neon-green to-emerald-600 p-4 rounded-full shadow-[0_0_20px_rgba(0,255,102,0.6)] hover:scale-110 transition-transform flex items-center justify-center text-white text-2xl">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex justify-end hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full max-w-md bg-dark-card border-l border-white/10 h-full flex flex-col p-6 shadow-2xl overflow-y-auto">
+            <div class="flex items-center justify-between pb-4 border-b border-white/10 font-orbitron">
+                <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-shopping-bag text-neon-pink"></i> CARRITO DE COMPRA
+                </h3>
+                <button onclick="toggleCart()" class="text-gray-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items List -->
+            <div id="cart-items" class="flex-1 py-4 space-y-4 overflow-y-auto">
+                <!-- Dynamic Items -->
+            </div>
+
+            <!-- Checkout Form -->
+            <div class="pt-4 border-t border-white/10 space-y-4 font-poppins">
+                <div class="flex justify-between items-center font-orbitron text-lg font-bold">
+                    <span>TOTAL:</span>
+                    <span id="cart-total" class="text-neon-cyan neon-text-cyan">0 Bs</span>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-orbitron text-gray-400 mb-1">TU NOMBRE</label>
+                    <input type="text" id="customer-name" placeholder="Ej. Juan Pérez" class="w-full bg-dark-input border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-neon-cyan">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-orbitron text-gray-400 mb-1">MÉTODO DE PAGO PREFERIDO</label>
+                    <select id="payment-method" class="w-full bg-dark-input border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-neon-cyan">
+                        <option value="Pago Móvil">Pago Móvil (Bs)</option>
+                        <option value="Transferencia Banesco/Mercantil">Transferencia (Bs)</option>
+                        <option value="Zelle">Zelle ($)</option>
+                        <option value="Zinli">Zinli ($)</option>
+                        <option value="Binance USDT">Binance / USDT</option>
+                    </select>
+                </div>
+
+                <button onclick="sendWhatsAppOrder()" class="w-full py-4 rounded-xl font-orbitron font-bold text-white btn-neon-green flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>CONFIRMAR PEDIDO POR WHATSAPP</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Application Logic -->
+    <script>
+        // Products Catalog Data
+        const products = [
+            {
+                id: 1,
+                name: "Netflix VIP",
+                category: "streaming",
+                icon: "fa-film",
+                color: "text-red-500",
+                badge: "Más Vendido 🔥",
+                plans: [
+                    { name: "1 Mes", price: 4500 },
+                    { name: "2 Meses", price: 8500 },
+                    { name: "3 Meses", price: 12000 }
+                ]
+            },
+            {
+                id: 2,
+                name: "Disney+",
+                category: "streaming",
+                icon: "fa-tv",
+                color: "text-blue-400",
+                badge: "Popular",
+                plans: [
+                    { name: "1 Mes", price: 4500 }
+                ]
+            },
+            {
+                id: 3,
+                name: "Flujo TV",
+                category: "streaming",
+                icon: "fa-play",
+                color: "text-cyan-400",
+                badge: "En Vivo + VOD",
+                plans: [
+                    { name: "1 Mes", price: 4000 }
+                ]
+            },
+            {
+                id: 4,
+                name: "Spotify Premium",
+                category: "musica",
+                icon: "fa-spotify",
+                color: "text-green-500",
+                badge: "Música Sin Anuncios",
+                plans: [
+                    { name: "1 Mes", price: 6500 }
+                ]
+            },
+            {
+                id: 5,
+                name: "Paramount+",
+                category: "streaming",
+                icon: "fa-circle-play",
+                color: "text-blue-600",
+                plans: [
+                    { name: "1 Mes", price: 3000 }
+                ]
+            },
+            {
+                id: 6,
+                name: "HBO Max / Max",
+                category: "streaming",
+                icon: "fa-clapperboard",
+                color: "text-purple-500",
+                plans: [
+                    { name: "1 Mes", price: 3900 }
+                ]
+            },
+            {
+                id: 7,
+                name: "Prime Video",
+                category: "streaming",
+                icon: "fa-video",
+                color: "text-sky-400",
+                plans: [
+                    { name: "1 Mes", price: 3500 }
+                ]
+            },
+            {
+                id: 8,
+                name: "Crunchyroll Mega Fan",
+                category: "streaming",
+                icon: "fa-ghost",
+                color: "text-orange-500",
+                badge: "Anime HD",
+                plans: [
+                    { name: "1 Mes", price: 3600 }
+                ]
+            },
+            {
+                id: 9,
+                name: "Canva Premium Pro",
+                category: "musica",
+                icon: "fa-pen-ruler",
+                color: "text-teal-400",
+                plans: [
+                    { name: "1 Mes", price: 4200 }
+                ]
+            },
+            {
+                id: 10,
+                name: "ViX Premium",
+                category: "streaming",
+                icon: "fa-display",
+                color: "text-orange-400",
+                plans: [
+                    { name: "1 Mes", price: 3600 }
+                ]
+            },
+            {
+                id: 11,
+                name: "CapCut Pro VIP",
+                category: "musica",
+                icon: "fa-scissors",
+                color: "text-pink-400",
+                plans: [
+                    { name: "1 Mes", price: 4500 }
+                ]
+            },
+            {
+                id: 12,
+                name: "ChatGPT Plus",
+                category: "musica",
+                icon: "fa-robot",
+                color: "text-emerald-400",
+                badge: "IA Avanzada",
+                plans: [
+                    { name: "1 Mes", price: 8500 }
+                ]
+            },
+            {
+                id: 13,
+                name: "YouTube Premium",
+                category: "musica",
+                icon: "fa-youtube",
+                color: "text-red-600",
+                plans: [
+                    { name: "1 Mes", price: 5500 }
+                ]
+            },
+            // Combos Especiales
+            {
+                id: 101,
+                name: "COMBO: Netflix + Crunchyroll",
+                category: "combos",
+                icon: "fa-fire-flame-curved",
+                color: "text-neon-pink",
+                badge: "OFERTA DÚO 🔥",
+                plans: [
+                    { name: "1 Mes", price: 5300 }
+                ]
+            },
+            {
+                id: 102,
+                name: "COMBO: HBO Max + Paramount",
+                category: "combos",
+                icon: "fa-bolt",
+                color: "text-neon-cyan",
+                badge: "OFERTA DÚO ⚡",
+                plans: [
+                    { name: "1 Mes", price: 5300 }
+                ]
+            },
+            {
+                id: 103,
+                name: "COMBO: Netflix + Disney+",
+                category: "combos",
+                icon: "fa-crown",
+                color: "text-neon-purple",
+                badge: "COMBO ESTRELLA ⭐",
+                plans: [
+                    { name: "1 Mes", price: 6500 }
+                ]
+            }
+        ];
+
+        let cart = [];
+        let selectedPlans = {};
+
+        // Initialize Product Cards Render
+        function renderProducts(filter = 'all') {
+            const container = document.getElementById('product-grid');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? products 
+                : products.filter(p => p.category === filter);
+
+            filtered.forEach(p => {
+                // Default to first plan
+                if (!selectedPlans[p.id]) selectedPlans[p.id] = 0;
+                const currentPlan = p.plans[selectedPlans[p.id]];
+                const isCombo = p.category === 'combos';
+
+                const cardHtml = `
+                    <div class="neon-box ${isCombo ? 'neon-box-combo' : ''} rounded-3xl p-6 relative flex flex-col justify-between group">
+                        ${p.badge ? `<span class="absolute top-4 right-4 bg-neon-pink/20 border border-neon-pink text-neon-pink text-[10px] font-orbitron font-bold px-3 py-1 rounded-full uppercase tracking-wider">${p.badge}</span>` : ''}
+                        
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-dark-bg border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid ${p.icon} ${p.color} text-2xl"></i>
+                            </div>
+
+                            <h3 class="font-orbitron text-xl font-bold text-white mb-2">${p.name}</h3>
+                            
+                            <!-- Plan Selector -->
+                            ${p.plans.length > 1 ? `
+                                <div class="my-4">
+                                    <label class="block text-[10px] font-orbitron text-gray-400 mb-1">SELECCIONA LA DURACIÓN:</label>
+                                    <div class="grid grid-cols-${p.plans.length} gap-2">
+                                        ${p.plans.map((plan, idx) => `
+                                            <button onclick="selectPlan(${p.id}, ${idx})" class="py-1.5 px-2 text-xs font-orbitron rounded-lg border ${selectedPlans[p.id] === idx ? 'border-neon-cyan bg-neon-cyan/20 text-white font-bold' : 'border-white/10 text-gray-400 hover:border-white/30'} transition-all">
+                                                ${plan.name}
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            ` : '<div class="h-4"></div>'}
+
+                            <div class="mt-4 mb-6">
+                                <span class="text-xs font-orbitron text-gray-400 block">PRECIO REGULAR</span>
+                                <span class="text-3xl font-orbitron font-black text-neon-cyan neon-text-cyan">${currentPlan.price.toLocaleString()} Bs</span>
+                            </div>
+                        </div>
+
+                        <button onclick="addToCart(${p.id})" class="w-full py-3.5 rounded-xl font-orbitron font-bold text-sm text-white ${isCombo ? 'btn-neon-pink' : 'btn-neon-cyan'} flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>AGREGAR AL CARRITO</span>
+                        </button>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        function selectPlan(productId, planIndex) {
+            selectedPlans[productId] = planIndex;
+            const currentFilter = document.querySelector('.cat-btn.active').getAttribute('onclick').match(/'([^']+)'/)[1];
+            renderProducts(currentFilter);
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-neon-cyan', 'bg-neon-cyan/10', 'text-white', 'font-bold');
+                btn.classList.add('border-white/10', 'text-gray-300');
+            });
+            event.target.classList.add('active', 'border-neon-cyan', 'bg-neon-cyan/10', 'text-white', 'font-bold');
+            renderProducts(cat);
+        }
+
+        // Cart Logic
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const planIdx = selectedPlans[productId] || 0;
+            const selectedPlan = product.plans[planIdx];
+
+            const existingIndex = cart.findIndex(item => item.id === productId && item.planName === selectedPlan.name);
+            
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    planName: selectedPlan.name,
+                    price: selectedPlan.price,
+                    quantity: 1
+                });
+            }
+
+            updateCartUI();
+            toggleCart(true);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                count += item.quantity;
+
+                cartItemsContainer.innerHTML += `
+                    <div class="bg-dark-bg border border-white/10 p-4 rounded-xl flex items-center justify-between">
+                        <div>
+                            <h4 class="font-orbitron font-bold text-sm text-white">${item.name}</h4>
+                            <span class="text-xs text-neon-purple font-orbitron">${item.planName}</span>
+                            <div class="text-xs text-gray-400 mt-1">${item.price.toLocaleString()} Bs x ${item.quantity}</div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="font-orbitron font-bold text-neon-cyan">${(item.price * item.quantity).toLocaleString()} Bs</span>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-400 p-1">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartCount.innerText = count;
+            cartTotal.innerText = `${total.toLocaleString()} Bs`;
+        }
+
+        function toggleCart(open = false) {
+            const modal = document.getElementById('cart-modal');
+            if (open || modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            } else {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        }
+
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                alert("Tu carrito está vacío.");
+                return;
+            }
+
+            const name = document.getElementById('customer-name').value.trim();
+            if (!name) {
+                alert("Por favor ingresa tu nombre.");
+                return;
+            }
+
+            const payment = document.getElementById('payment-method').value;
+            const phone = "584241449142"; // Número configurado
+
+            let message = `👑 *NUEVO PEDIDO - IMPERIO STREAM* 👑\n\n`;
+            message += `👤 *Cliente:* ${name}\n`;
+            message += `💳 *Método de Pago:* ${payment}\n\n`;
+            message += `🛒 *DETALLE DEL PEDIDO:*\n`;
+
+            let total = 0;
+            cart.forEach((item, i) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                message += `${i + 1}. *${item.name}* (${item.planName}) x${item.quantity} = ${subtotal.toLocaleString()} Bs\n`;
+            });
+
+            message += `\n💰 *TOTAL A PAGAR:* ${total.toLocaleString()} Bs\n\n`;
+            message += `⚡ *Quedo a la espera de los datos de pago para procesar la entrega.*`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+        }
+
+        // Initial Load
+        renderProducts();
+    </script>
+</body>
+</html>
